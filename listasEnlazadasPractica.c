@@ -2,10 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*No me dió el tiempo de implementarlo, estaba fallando el internet de la biblioteca,
-no obstante ya tengo la idea y una parte del código*/
-
-typedef struct alumno {
+typedef struct alumno { //Defino el struct para el alumno
     char *nombreCompleto;
     int creditosAprobados;
     int semestreEquivalente;
@@ -13,52 +10,73 @@ typedef struct alumno {
 
 typedef Alumno *AlumnoPtr;
 
-typedef struct nodo {       // Definimos el struct para la lista
+typedef struct nodo {       // Defino el struct para el nodo
     AlumnoPtr alumno;
     struct nodo *siguientePtr;
 } Nodo;
 
-typedef struct nodo *NodoPtr; //lo puse de esta forma porque vs code lloraba cuando ponía Nodo
+typedef Nodo *NodoPtr; 
 
 
-/*Firmas*/
+//FIRMAS:
 
 AlumnoPtr crearAlumno(char* nombreCompleto, int creditosAprobados, int semestreEquivalente); //pedido
-void liberarAlumno(AlumnoPtr alumno);
-void imprimeAlumno(AlumnoPtr alumno);
+void imprimirAlumno(NodoPtr actualPtr);//pedido
+void liberarAlumno(AlumnoPtr alumno); //necesario
+
 
 NodoPtr crearNodo(AlumnoPtr nuevoAlumno); //pedido
-void liberarNodo(NodoPtr nodo);
-void imprimeLista( NodoPtr actualPtr);//pedido
-int estaVacia(NodoPtr sPtr);
-void eliminarNodoPorNombre(NodoPtr* cabecera, char* dato);
-void actualizarNodoPorNombre(NodoPtr *cabecera, char* dato, char* nuevoDato);
-void insertarOrdenado(NodoPtr *cabeza, NodoPtr nuevo);
-void liberarLista(NodoPtr lista);
-void insertarNodoOrdenadoCreditos(NodoPtr *cabeza);//pedido
+void liberarNodo(NodoPtr nodo); //necesario
+void imprimirLista( NodoPtr actualPtr);//pedido
+int estaVacia(NodoPtr sPtr); //necesario
+void insertarNodoOrdenadoCreditos(NodoPtr *cabeza, NodoPtr nuevoNodo );//pedido
+
+void confirmarAlumnoCreado(AlumnoPtr alumnoX);
+void confirmarNodoCreado(NodoPtr nodoX);
+
+void liberarLista(NodoPtr lista); //necesario
+
 
 //MAIN:
 int main()
 {
     NodoPtr inicioPtr = NULL;
 
-    insertarOrdenado(&inicioPtr,crearNodo(crearAlumno("Hola", "Russ")));
-    insertarOrdenado(&inicioPtr,crearNodo(crearAlumno("Bonilla", "Russel")));
-    insertarOrdenado(&inicioPtr,crearNodo(crearAlumno("Bonilla", "Adrian")));
-    insertarOrdenado(&inicioPtr,crearNodo(crearAlumno("Hola", "Adrian")));
-    imprimeLista(inicioPtr);
-    printf("\n \n");
+    //5 instancias de estructuras Alumno:
+    printf("\n");
+    AlumnoPtr alumno1 = crearAlumno("Paulo Andreu", 57, 3);
+    confirmarAlumnoCreado(alumno1);
+    AlumnoPtr alumno2 = crearAlumno("Andrea Riquelme", 76, 4);
+    confirmarAlumnoCreado(alumno2);
+    AlumnoPtr alumno3 = crearAlumno("Emilio Angulo", 38, 2);
+    confirmarAlumnoCreado(alumno3);
+    AlumnoPtr alumno4 = crearAlumno("Patricia Delgado", 95, 5);
+    confirmarAlumnoCreado(alumno4);
+    AlumnoPtr alumno5 = crearAlumno("Cintia Ballesteros", 19, 1);
+    confirmarAlumnoCreado(alumno5);
+    printf("\n\n");
+    //la lista con las 5 instancias de Alumno:
+    NodoPtr nodo1 = crearNodo(alumno1);
+    confirmarNodoCreado(nodo1);
+    NodoPtr nodo2 = crearNodo(alumno2);
+    confirmarNodoCreado(nodo2);
+    NodoPtr nodo3 = crearNodo(alumno3);
+    confirmarNodoCreado(nodo3);
+    NodoPtr nodo4 = crearNodo(alumno4);
+    confirmarNodoCreado(nodo4);
+    NodoPtr nodo5 = crearNodo(alumno5);
+    confirmarNodoCreado(nodo5);
+    printf("\n\n");
+    //insertar de forma ordenada de acuerdo al número de créditos:
 
-    eliminarNodoPorNombre(&inicioPtr, "Russ");
-    imprimeLista(inicioPtr);
-    printf("\n \n");
-
-    actualizarNodoPorNombre(&inicioPtr, "Adrian", "Siuu");
-    imprimeLista(inicioPtr);
-
+    insertarNodoOrdenadoCreditos(&inicioPtr, nodo1);
+    insertarNodoOrdenadoCreditos(&inicioPtr, nodo2);
+    insertarNodoOrdenadoCreditos(&inicioPtr, nodo3);
+    insertarNodoOrdenadoCreditos(&inicioPtr, nodo4);
+    insertarNodoOrdenadoCreditos(&inicioPtr, nodo5);
     
-
-
+    imprimirLista(inicioPtr);
+    printf("\n");
 
     liberarLista(inicioPtr);
 
@@ -68,19 +86,9 @@ int main()
 
 //FUNCIONES:
 
-/*
-char* crearCadena(char* cadena) {
-
-    AlumnoPtr alumno = (AlumnoPtr)malloc(sizeof(Alumno));
-   
-    char* nuevaCadena = (char*)malloc(strlen(cadena) + 1);
-    strcpy(nuevaCadena, cadena);
-    return nuevaCadena;
-}
-*/
 
 AlumnoPtr crearAlumno(char* nombreCompleto, int creditosAprobados, int semestreEquivalente) {
-    AlumnoPtr alumno = (AlumnoPtr)malloc(sizeof(Alumno));
+    AlumnoPtr alumno = (AlumnoPtr)malloc(sizeof(Alumno)); 
 
     alumno->nombreCompleto = (char*)malloc(strlen(nombreCompleto) + 1);
     strcpy(alumno->nombreCompleto, nombreCompleto);
@@ -91,17 +99,18 @@ AlumnoPtr crearAlumno(char* nombreCompleto, int creditosAprobados, int semestreE
     return alumno;
 }
 
-void imprimeAlumno(AlumnoPtr alumno){
-
+//imprime los elementos del alumno:
+void imprimirAlumno(NodoPtr actualPtr){
+    printf("Nombre: %s, Créditos Aprobados: %i, Semestre Equivalente: %i \n ", actualPtr->alumno->nombreCompleto, actualPtr->alumno->creditosAprobados, actualPtr->alumno->semestreEquivalente);
 }
 
+//Libera la dirección de memoria que ocupaba el alumno:
 void liberarAlumno(AlumnoPtr alumno) {
     free(alumno->nombreCompleto);
-    free(alumno->creditosAprobados);
-    free(alumno->semestreEquivalente);
     free(alumno);
 }
 
+//crea un nuevo nodo en la lista:
 NodoPtr crearNodo(AlumnoPtr nuevoAlumno) {
     NodoPtr nuevoNodo = (NodoPtr)malloc(sizeof(Nodo));
 
@@ -111,109 +120,42 @@ NodoPtr crearNodo(AlumnoPtr nuevoAlumno) {
     return nuevoNodo;
 }
 
+//libera la dirección de memoria que ocupaba un nodo:
 void liberarNodo(NodoPtr nodo){
-
     free(nodo);   
 }
 
 
-//Funcion para Imprimir la Lista
-void imprimeLista( NodoPtr actualPtr){
-    if (actualPtr==NULL){                           //revisa si la lista esta vacia
-        printf("Lista vacia \n\n");
-        return;
-    }
-    else{
-        printf("Contenido de la lista:\n");
-        
-        while(actualPtr != NULL){                   //Imprime la lista
-            printf("%s %s \n ", actualPtr->alumno->apellidoPaterno, actualPtr->alumno->nombre);
-            actualPtr = actualPtr->siguientePtr;  
-        }
-        
-    }
-}
-
+//revisa si la lista está vacía:
 int estaVacia(NodoPtr sPtr)
 { 
     return sPtr == NULL;
 }
 
-void eliminarNodoPorNombre(NodoPtr* cabecera, char* nombre){
-    NodoPtr anterior, actual;
-    anterior = NULL;
-    actual = *cabecera;
-    
-    //Buscar el nodo
-    while(actual!=NULL && strcmp(actual->alumno->nombre, nombre) != 0 ){ //no sé si es suficiente con eso o requiero comparar elemento por elemento
-        anterior = actual;
-        actual = actual->siguientePtr;
-    }
-    // Si no lo encontro 
-    if(actual == NULL){
-       printf("Nodo no encontrado");
-       return; 
-    }
-    //al inciio
-    if(actual == *cabecera){
-        *cabecera = actual->siguientePtr;
-    }else //enmedio
-        anterior->siguientePtr=actual->siguientePtr;
-    
-    liberarNodo(actual);    
-}
-
-
-void actualizarNodoPorNombre(NodoPtr *cabecera, char* nombre, char* nuevoNombre){
-    NodoPtr actual;
-   
-    actual = *cabecera;
-    
-   while(actual != NULL  && strcmp(actual->alumno->nombre, nombre) != 0){
-    actual = actual->siguientePtr;
-   }
-
-   if(actual == NULL ){ //si actual es null, significa  que nunca se encontro el nodo
-    printf("No se encontro el nodo a actualizar");
-   }
-   else{
-    strcpy(actual->alumno->nombre, nuevoNombre);
-   }
-}
-
-
-void insertarOrdenado(NodoPtr *cabeza, NodoPtr nuevoNodo ){
+//inserta los nodos de manera ordenada de Mayor a menor:
+void insertarNodoOrdenadoCreditos(NodoPtr *cabeza, NodoPtr nuevoNodo ){
 
     NodoPtr nodoActualPtr = *cabeza;
     NodoPtr nodoAnteriorPtr= NULL;
 
-    //esto debido a que si la lista no tiene ningún elemento, no tiene sentido 
-    //hacer lo sig.
+    //esto debido a que si la lista no tiene ningún elemento, no tiene sentido hacer el ciclo while
     if(estaVacia(*cabeza)){
         *cabeza = nuevoNodo;
         return;
     }
-    //si la lista no estå vacía, entonces debo recorrer la lista para identificar
-    //dónde debería insertar el nodo 
+    //si la lista no estå vacía, entonces debo recorrer la lista para identificar dónde debería insertar el nodo 
    
 
-    while (nodoActualPtr != NULL && strcmp(nuevoNodo->alumno->apellidoPaterno, nodoActualPtr->alumno->apellidoPaterno)>0 ) {
+    while (nodoActualPtr != NULL && nuevoNodo->alumno->creditosAprobados < nodoActualPtr->alumno->creditosAprobados ) {
         // se avanza en el recorrido de la lista
         nodoAnteriorPtr = nodoActualPtr;
         nodoActualPtr = nodoActualPtr->siguientePtr;
 
-        if(strcmp(nuevoNodo->alumno->apellidoPaterno, nodoActualPtr->alumno->apellidoPaterno)==0){
-            while (strcmp(nuevoNodo->alumno->nombre, nodoActualPtr->alumno->nombre)>0 ){
-                nodoAnteriorPtr = nodoActualPtr;
-                nodoActualPtr = nodoActualPtr->siguientePtr;
-            }
-        }
     } 
     
-    if (nodoAnteriorPtr == NULL) {/*nodoAnteriorPtr->siguientePtr. Si es NULL, 
-    significa que el nuevo nodo debe convertirse en la cabeza de la lista, es importante ponerlo
-    para no tener un segmentation fault*/
-        nuevoNodo->siguientePtr = *cabeza;
+    if (nodoAnteriorPtr == NULL) {//es importante ponerlo para no tener un segmentation fault
+        
+        nuevoNodo->siguientePtr = *cabeza; 
         *cabeza = nuevoNodo;
     } else { //insercción del nodo entre anterior y actual 
         nodoAnteriorPtr->siguientePtr = nuevoNodo;
@@ -221,6 +163,44 @@ void insertarOrdenado(NodoPtr *cabeza, NodoPtr nuevoNodo ){
     }
 }
 
+
+//Funcion para Imprimir la Lista:
+void imprimirLista( NodoPtr actualPtr){
+    if (actualPtr==NULL){                           //revisa si la lista esta vacia
+        printf("Lista vacia \n\n");
+        return;
+    }
+    else{
+        printf("Impresión de la lista de alumnos (Créditos Descendentes):\n\n"); 
+        
+        while(actualPtr != NULL){   //Imprime cada alumno de la lista ordenada previamente de Mayor a menor 
+            imprimirAlumno(actualPtr);                
+            actualPtr = actualPtr->siguientePtr;  
+        }
+        
+    }
+}
+
+//confirma si el alumno fue creado y te dice la dirección de memoria en la que se encuentra:
+void confirmarAlumnoCreado(AlumnoPtr alumnoX){
+    if(alumnoX ==NULL){
+        printf("La creación del alumno fue imposible\n");
+    }else{
+        printf("Se ha creado una estructura Alumno con la dirección %p\n", alumnoX);
+    }
+}
+
+//confirma si el nodo fue creado y te dice la dirección de memoria en la que se encuentra:
+void confirmarNodoCreado(NodoPtr nodoX){
+    if(nodoX==NULL){
+        printf("La creación del nodo fue imposible\n");
+    }else{
+        printf("Se ha creado un nodo en la lista de alumnos en %p\n", nodoX);
+    }
+}
+
+/*libera la dirección de memoria de la lista completa y de cada elemento dinámico en ella (es responsabilidad del desarrollador liberar elementos
+asignados en memoria dinámica)  :*/
 void liberarLista(NodoPtr cabeza) {
     while (cabeza != NULL) {
         NodoPtr temp = cabeza;
@@ -230,8 +210,3 @@ void liberarLista(NodoPtr cabeza) {
     }
 }
 
-
-//para comprar dos cadenas usamos la función de la biblioteca: strcmp (una función que recibe dos apuntadores y devuelve 
-//si la cadena a>b devuelve algo mayor a 0, si a es menor que b devuelve un float menor que 0 (la diferencia)
-// y si son iguales devuelve 0)
-//string comper lo que devuelve es la diferencia
