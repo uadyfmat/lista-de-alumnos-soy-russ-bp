@@ -67,5 +67,6 @@ Evidencia del funcionamiento de mi consola de comandos:
 El formato es exactamente el mismo al del ejemplo, los cambios se reflejan en el nombre de los alumnos, los créditos aprobados y los semestres equivalentes.
 
 En mi código puede ver cada parte que hizo posible esta ejecución, cada función contiene el principio de ***responsabilidad única***.
+Puede ver el código [aquí](https://github.com/uadyfmat/lista-de-alumnos-soy-russ-bp/blob/22782fbffd785ba01cd7f09b0ef8a6eafecca5c7/listasEnlazadasPractica.c)
 
 > Written with [StackEdit](https://stackedit.io/).
