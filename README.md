@@ -4,7 +4,7 @@
 #  Lista de Alumnos.
 
 ## Instrucciones:
-
+**Nota: la evidencia del funcionamiento de mi código, así como el link que dirige hacia mi código se encuentran al final de este readme**
 Considera la siguiente Estructura de Datos **Alumno** que contiene los datos:
 ```c++
      - Nombre Completo (cadena),  
