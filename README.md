@@ -16,16 +16,7 @@ Considera la siguiente Estructura de Datos **Alumno** que contiene los datos:
 <p align="center">
   <img src="assets/Alumno.drawio.png">
 </p>
----------------------------------------------------------------------------------------------------------------------------------------------------------------
-Evidencia del funcionamiento de mi consola de comandos:
 
-<p align="center">
-  <img src="assets/EvidenciaTerminalRusselBonilla">
-</p>
-
-El formato es exactamente el mismo al del ejemplo, los cambios se reflejan en el nombre de los alumnos, los créditos aprobados y los semestres equivalentes.
-
-En mi código puede ver cada parte que hizo posible esta ejecución, cada función contiene el requerimiento de "Responsabilidad única".
  
 Se creará una lista (simplemente enlazada) para mantener la información de los alumnos.  Cada nodo de la lista ***contiene*** en el dato una estructura Alumno y un apuntador al siguiente nodo.
 
@@ -65,5 +56,16 @@ No se espera que la funcionalidad este completa durante la sesión pero es requi
 >La implementación que se solicita es la mínima indispensable, pero pueden agregar más funciones si así lo requieren. Lo relevante es cuidar el principio de ***responsabilidad única***.
 
 ![Evidencia](assets/EvidenciaTerminal.png)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+Evidencia del funcionamiento de mi consola de comandos:
+
+<p align="center">
+  <img src="assets/EvidenciaTerminalRusselBonilla">
+</p>
+
+El formato es exactamente el mismo al del ejemplo, los cambios se reflejan en el nombre de los alumnos, los créditos aprobados y los semestres equivalentes.
+
+En mi código puede ver cada parte que hizo posible esta ejecución, cada función contiene el principio de ***responsabilidad única***.
 
 > Written with [StackEdit](https://stackedit.io/).
