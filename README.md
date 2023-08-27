@@ -2,9 +2,11 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=11625178&assignment_repo_type=AssignmentRepo)
 # Ejercicio de Práctica-PD
 #  Lista de Alumnos.
+**Nota: la evidencia del funcionamiento de mi código, así como el link que dirige hacia mi código se encuentran al final de este readme**
+
 
 ## Instrucciones:
-**Nota: la evidencia del funcionamiento de mi código, así como el link que dirige hacia mi código se encuentran al final de este readme**
+
 Considera la siguiente Estructura de Datos **Alumno** que contiene los datos:
 ```c++
      - Nombre Completo (cadena),  
