@@ -61,7 +61,7 @@ No se espera que la funcionalidad este completa durante la sesión pero es requi
 Evidencia del funcionamiento de mi consola de comandos:
 
 <p align="center">
-  <img src="assets/EvidenciaTerminalRusselBonilla">
+  <img src="assets/EvidenciaTerminalRusselBonilla.png">
 </p>
 
 El formato es exactamente el mismo al del ejemplo, los cambios se reflejan en el nombre de los alumnos, los créditos aprobados y los semestres equivalentes.
